@@ -47,9 +47,9 @@ public class Main {
 //PRENOTAZIONE DI UNO STUDENTE AD UN APPELLO
 		
 		Studente studente1 = gestoreDati.creaStudente(12321, "N46000001");
-		Studente studente2 = gestoreDati.creaStudente(98789, "N46000002");
+		Studente studente2 = gestoreDati.creaStudente(34543, "N46000002");
 		Studente studente3 = gestoreDati.creaStudente(56765, "N46000003");
-		Studente studente4 = gestoreDati.creaStudente(34543, "N46000004");
+		Studente studente4 = gestoreDati.creaStudente(78987, "N46000004");
 		
 		gestoreAppelli.prenotaAppello(appello, studente1);
 		gestoreAppelli.prenotaAppello(appello, studente2);

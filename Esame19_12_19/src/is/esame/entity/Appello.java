@@ -27,11 +27,13 @@ public class Appello {
 		this.dateAppelli.add(data);
 	}
 	
+	/*
 	public Appello() {
 		this.corso = null;
 		this.dateAppelli = new ArrayList<DataAppello>();
 		this.prenotazioni = new ArrayList<Prenotazione>();
 	}
+	*/
 	
 	
 //CORSO
@@ -54,6 +56,9 @@ public class Appello {
 	}
 	public Prenotazione removePrenotazione(int index) {
 		return this.prenotazioni.remove(index);
+	}
+	public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
 	}
 	
 	

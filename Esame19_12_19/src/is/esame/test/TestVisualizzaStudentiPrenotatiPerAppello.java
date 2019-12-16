@@ -23,7 +23,9 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	
 	
 	GestioneAppelli gestoreAppelli = null;
+	
 	static DataAppello data = null;
+	static Corso corso = null;
 
 	
 	@BeforeClass
@@ -35,11 +37,15 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 		
 		data = new DataAppello(dataAppello, sedeEsame, tipoDiProva);
 		
+		Docente docente = new Docente("docente A");
+		corso = new Corso("corsoA", docente, 9);
+		
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		data = null;
+		corso = null;
 	}
 
 	@Before
@@ -66,22 +72,21 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	@Test
 	public void test2() {
 		System.out.print("\n\n[TEST 02]");
-		Appello appello = new Appello();
+		
+		Appello appello = new Appello(corso, data);
+		appello.setPrenotazioni(null);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertNull(result);
+		assertTrue(result.isEmpty());
 	}
 	
 	@Test
 	public void test3() {
 		System.out.print("\n\n[TEST 03]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(null);
+		appello.setPrenotazioni(new ArrayList<Prenotazione>());
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
@@ -92,12 +97,10 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	public void test4() {
 		System.out.print("\n\n[TEST 04]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		Prenotazione prenotazione = new Prenotazione();
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Prenotazione newPrenotazione = new Prenotazione(null, null);
+		appello.addPrenotazione(newPrenotazione);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
@@ -108,14 +111,12 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	public void test5() {
 		System.out.print("\n\n[TEST 05]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(null);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Studente studente = new Studente(1234, "N46003672");
+		
+		Prenotazione newPrenotazione = new Prenotazione(null, studente);
+		appello.addPrenotazione(newPrenotazione);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
@@ -126,32 +127,29 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	public void test6() {
 		System.out.print("\n\n[TEST 06]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(StatoPrenotazione.PROMOSSO);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Studente studente = new Studente(1234, "N46003672");
+		
+		Prenotazione newPrenotazione = new Prenotazione(StatoPrenotazione.PRENOTATO, studente);
+		appello.addPrenotazione(newPrenotazione);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertTrue(result.isEmpty());
+		
+		assertTrue(result.contains(studente));
 	}
 	
 	@Test
 	public void test7() {
 		System.out.print("\n\n[TEST 07]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(StatoPrenotazione.BOCCIATO);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Studente studente = new Studente(1234, "N46003672");
+		
+		Prenotazione newPrenotazione = new Prenotazione(StatoPrenotazione.PROMOSSO, studente);
+		appello.addPrenotazione(newPrenotazione);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
@@ -162,16 +160,12 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	public void test8() {
 		System.out.print("\n\n[TEST 08]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		Studente studente = null;
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(StatoPrenotazione.PRENOTATO);
-		prenotazione.setStudente(studente);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Studente studente = new Studente(1234, "N46003672");
+		
+		Prenotazione newPrenotazione = new Prenotazione(StatoPrenotazione.BOCCIATO, studente);
+		appello.addPrenotazione(newPrenotazione);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
@@ -182,87 +176,25 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 	public void test9() {
 		System.out.print("\n\n[TEST 09]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		Studente studente = new Studente(1234, "N46003672");
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(StatoPrenotazione.PRENOTATO);
-		prenotazione.setStudente(studente);
-		
 		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
+		
+		Studente studente1 = new Studente(1234, "N46000001");
+		Studente studente2 = new Studente(5678, "N46000002");
+		
+		Prenotazione newPrenotazione1 = new Prenotazione(StatoPrenotazione.PRENOTATO, studente1);
+		Prenotazione newPrenotazione2 = new Prenotazione(StatoPrenotazione.PRENOTATO, studente2);
+		
+		appello.addPrenotazione(newPrenotazione1);
+		appello.addPrenotazione(newPrenotazione2);
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertTrue(result.contains(studente));
-	}
-	
-	@Test
-	public void test10() {
-		System.out.print("\n\n[TEST 10]");
 		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		Studente studente = new Studente();
-		
-		Prenotazione prenotazione = new Prenotazione();
-		prenotazione.setStato(StatoPrenotazione.PRENOTATO);
-		prenotazione.setStudente(studente);
-		
-		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione);
-		
-		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
-		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertTrue(result.isEmpty());
-	}
-	
-	@Test
-	public void test11() {
-		System.out.print("\n\n[TEST 11]");
-		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
-		Studente studente1 = new Studente(1234, "N46003672");
-		Prenotazione prenotazione1 = new Prenotazione();
-		prenotazione1.setStato(StatoPrenotazione.PRENOTATO);
-		prenotazione1.setStudente(studente1);
-		
-		Studente studente2 = new Studente(5678, "N46003673");
-		Prenotazione prenotazione2 = new Prenotazione();
-		prenotazione2.setStato(StatoPrenotazione.PRENOTATO);
-		prenotazione2.setStudente(studente2);
-		
-		Appello appello = new Appello(corso, data);
-		appello.addPrenotazione(prenotazione1);
-		appello.addPrenotazione(prenotazione2);
-		
-		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
-		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		boolean result1 = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello).contains(studente1);
-		boolean result2 = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello).contains(studente2);
+		boolean result1 = result.contains(studente1);
+		boolean result2 = result.contains(studente2);
 		
 		assertTrue(result1 && result2);
 	}
-	
-	@Test
-	public void test12() {
-		System.out.print("\n\n[TEST 12]");
-		
-		Docente docente = new Docente("docente A");
-		Corso corso = new Corso("corsoA", docente, 9);
-		
-		Appello appello = new Appello(corso, data);
-		
-		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
-		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertTrue(result.isEmpty());
-	}
-	
-	
-	
 	
 
 }

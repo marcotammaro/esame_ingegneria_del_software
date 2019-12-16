@@ -50,6 +50,10 @@ public class GestioneAppelli {
 		
 		ArrayList<Prenotazione> prenotazioni = appello.getAllPrenotazioni();
 		
+		if (prenotazioni == null) {
+			return studentiPrenotati;
+		}
+		
 		//controlla che ci siano delle prenotazioni
 		if (prenotazioni.isEmpty()) {
 			
