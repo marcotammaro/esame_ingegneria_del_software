@@ -41,13 +41,12 @@ public class GestioneAppelli {
 
 	
 	public ArrayList<Studente> visualizzaStudentiPrenotatiPerAppello(Appello appello) {
-
-		if (appello == null || appello.getCorso() == null) {return null;}
 		
 		ArrayList<Studente> studentiPrenotati = new ArrayList<Studente>();
+
+		if (appello == null || appello.getCorso() == null) {return studentiPrenotati;}
 		
 		Corso corso = appello.getCorso();
-		
 		ArrayList<Prenotazione> prenotazioni = appello.getAllPrenotazioni();
 		
 		if (prenotazioni == null) {

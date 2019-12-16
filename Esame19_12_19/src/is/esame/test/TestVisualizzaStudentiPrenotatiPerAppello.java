@@ -66,7 +66,7 @@ public class TestVisualizzaStudentiPrenotatiPerAppello {
 		
 		ArrayList<Studente> result = gestoreAppelli.visualizzaStudentiPrenotatiPerAppello(appello);
 		System.out.print("\n\t -> [RESULT]: " + result + "\n");
-		assertNull(result);
+		assertTrue(result.isEmpty());
 	}
 	
 	@Test
