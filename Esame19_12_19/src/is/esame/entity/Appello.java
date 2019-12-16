@@ -74,11 +74,8 @@ public class Appello {
 		
 		StringBuffer buf = new StringBuffer();
 		
-		buf.append("APPELLO: " + "\n");
+		buf.append("APPELLI: " + "\n");
 		
-		for ( Prenotazione item : this.prenotazioni ) {
-			buf.append(item);
-		}
 		for ( DataAppello item : this.dateAppelli ) {
 			buf.append(item);
 		}
