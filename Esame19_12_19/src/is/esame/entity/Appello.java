@@ -27,14 +27,6 @@ public class Appello {
 		this.dateAppelli.add(data);
 	}
 	
-	/*
-	public Appello() {
-		this.corso = null;
-		this.dateAppelli = new ArrayList<DataAppello>();
-		this.prenotazioni = new ArrayList<Prenotazione>();
-	}
-	*/
-	
 	
 //CORSO
 	
@@ -74,7 +66,7 @@ public class Appello {
 	
 	
 //OPERATIONS:	
-	
+
 	public String toString() {
 		
 		StringBuffer buf = new StringBuffer();

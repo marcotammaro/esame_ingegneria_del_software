@@ -33,7 +33,7 @@ public class Studente {
 	}
 	
 	
-//NOME
+//MATRICOLA
 	
 	public String getMatricola() {
 		return this.matricola;

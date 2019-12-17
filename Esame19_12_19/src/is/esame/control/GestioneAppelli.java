@@ -50,11 +50,10 @@ public class GestioneAppelli {
 		ArrayList<Prenotazione> prenotazioni = appello.getAllPrenotazioni();
 		
 		if (prenotazioni == null) {
+			
 			return studentiPrenotati;
-		}
-		
-		//controlla che ci siano delle prenotazioni
-		if (prenotazioni.isEmpty()) {
+			
+		} else if (prenotazioni.isEmpty()) {
 			
 			System.out.print("\nNon sono presenti prenotazioni all'appello di " + corso.getNome());
 			return studentiPrenotati;
@@ -75,6 +74,7 @@ public class GestioneAppelli {
 							
 							studentiPrenotati.add(studente);
 							System.out.print(studente);
+							
 						}
 						
 					}
